@@ -1,37 +1,28 @@
 import { test, expect } from "@playwright/test";
 
+const elements = [
+  {
+    locator: (page) => page.getByRole("link", { name: "GitHub repository" }),
+    name: "playwright logo",
+  },
+  {
+    locator: (page) => page.getByRole("link", { name: "Discord server" }),
+    name: "playwright logo link",
+  },
+  {
+    locator: (page) =>
+      page.getByRole("button", { name: "Switch between dark and light" }),
+  },
+  {
+    locator: (page) =>
+      page.getByRole("heading", { name: "Playwright enables reliable" }),
+  },
+  {
+    locator: (page) => page.getByRole("link", { name: "Get started" }),
+  },
+];
+
 test.describe("тесты главной cтраницы", () => {
-  // test.beforeEach(async ({ page }) => {
-  //   await page.goto("https://rahulshettyacademy.com/seleniumPractise/#/");
-  // });
-
-  // test("проверка отображения элементов навигации header", async ({ page }) => {
-  //   // Recording...
-  //   await expect(page.getByText("GREENKART", { exact: true })).toBeVisible();
-  //   await expect(
-  //     page.getByRole("searchbox", { name: "Search for Vegetables and" })
-  //   ).toBeVisible();
-  //   await expect(
-  //     page.getByRole("button").filter({ hasText: /^$/ })
-  //   ).toBeVisible();
-  //   await expect(page.getByRole("link", { name: "Top Deals" })).toBeVisible();
-  //   await expect(
-  //     page.getByRole("link", { name: "Flight Booking" })
-  //   ).toBeVisible();
-  //   await expect(page.getByRole("link", { name: "Cart" })).toBeVisible();
-  // });
-
-  // test("проверка названий элементов hedaer", async ({ page }) => {
-  //   await expect(page.getByRole("banner")).toContainText("GREENKART");
-  //   await expect(page.getByRole("link", { name: "Top Deals" })).toContainText(
-  //     "Top Deals"
-  //   );
-
-  //   await expect(page.getByRole("banner")).toContainText("Flight Booking");
-  //   await expect(page.getByRole("rowgroup")).toContainText("Items");
-  //   await expect(page.getByRole("rowgroup")).toContainText("Price");
-  // });
-
   test.beforeEach(async ({ page }) => {
     await page.goto("https://playwright.dev/");
   });
@@ -39,13 +30,15 @@ test.describe("тесты главной cтраницы", () => {
   test("проверка атрибута href элементов навигации хедера", async ({
     page,
   }) => {
-    await expect(
-      page.getByRole("link", { name: "GitHub repository" })
-    ).toHaveAttribute("href", "https://github.com/microsoft/playwright");
+    test.step("проверка ссылок header", async () => {
+      await expect(
+        page.getByRole("link", { name: "GitHub repository" })
+      ).toHaveAttribute("href", "https://github.com/microsoft/playwright");
 
-    await expect(
-      page.getByRole("link", { name: "Discord server" })
-    ).toHaveAttribute("href", "https://aka.ms/playwright/discord");
+      await expect(
+        page.getByRole("link", { name: "Discord server" })
+      ).toHaveAttribute("href", "https://aka.ms/playwright/discord");
+    });
   });
 
   test("проверка light mode header", async ({ page }) => {
@@ -56,9 +49,11 @@ test.describe("тесты главной cтраницы", () => {
   });
 
   test("првоерка заголовка на странице", async ({ page }) => {
-    await expect(
-      page.getByRole("heading", { name: "Playwright enables reliable" })
-    ).toBeVisible();
+    test.step("проверка отображения текста на странице", async () => {
+      await expect(
+        page.getByRole("heading", { name: "Playwright enables reliable" })
+      ).toBeVisible();
+    });
 
     await expect(
       page.getByRole("heading", { name: "Playwright enables reliable" })
@@ -80,5 +75,56 @@ test.describe("тесты главной cтраницы", () => {
   });
 });
 
-// метод .soft делает мягкое утверждение, тоесть после провеленнеого теста идет дальше
+// метод .soft делает мягкое утверждение, тоесть после проваленного теста идет дальше
 // хук beforeEach выполняет действие перед началом тестов
+// анотация skip игнорирует тест (пропускает тест)
+// анотация fixme горит о том что - с тестом какие-то проблемы он просто пропускается. это пометка для себя, что тест надо фиксануть
+// анотация fail говорит - что тест был упавшим и мы об этом знаем, поэтому он будет passed даже если сломан
+// анотация only выделяет один тест который мы будем запускать (удобно во время разработки)
+// .step делает шаг теста
+
+// &&&&&&&&&&&&&&&$$$%#@@#$%^^&&&*******************************************//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+// test.beforeEach(async ({ page }) => {
+//   await page.goto("https://rahulshettyacademy.com/seleniumPractise/#/");
+// });
+
+// test("проверка отображения элементов навигации header", async ({ page }) => {
+//   // Recording...
+//   await expect(page.getByText("GREENKART", { exact: true })).toBeVisible();
+//   await expect(
+//     page.getByRole("searchbox", { name: "Search for Vegetables and" })
+//   ).toBeVisible();
+//   await expect(
+//     page.getByRole("button").filter({ hasText: /^$/ })
+//   ).toBeVisible();
+//   await expect(page.getByRole("link", { name: "Top Deals" })).toBeVisible();
+//   await expect(
+//     page.getByRole("link", { name: "Flight Booking" })
+//   ).toBeVisible();
+//   await expect(page.getByRole("link", { name: "Cart" })).toBeVisible();
+// });
+
+// test("проверка названий элементов hedaer", async ({ page }) => {
+//   await expect(page.getByRole("banner")).toContainText("GREENKART");
+//   await expect(page.getByRole("link", { name: "Top Deals" })).toContainText(
+//     "Top Deals"
+//   );
+
+//   await expect(page.getByRole("banner")).toContainText("Flight Booking");
+//   await expect(page.getByRole("rowgroup")).toContainText("Items");
+//   await expect(page.getByRole("rowgroup")).toContainText("Price");
+// });
