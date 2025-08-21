@@ -73,6 +73,15 @@ test.describe("тесты главной cтраницы", () => {
       .soft(page.getByRole("link", { name: "Get started" }))
       .toHaveAttribute("href", "/docs/intro");
   });
+
+  ["light", "dark"].forEach((val) => {
+    test(`проверка стилей активного мода ${val}`, async ({ page }) => {
+      await page.evaluate((val) => {
+        document.querySelector("html")?.setAttribute("data-theme", val);
+      }, val);
+      await expect(page).toHaveScreenshot(`pageWith${val}mode.png`);
+    });
+  });
 });
 
 // метод .soft делает мягкое утверждение, тоесть после проваленного теста идет дальше
