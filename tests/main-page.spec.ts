@@ -64,7 +64,7 @@ test.describe("тесты главной cтраницы", () => {
 
   test('проверка кнопки "GET STARTED"', async ({ page }) => {
     await expect
-      .soft(page.getByRole("link", { name: "Get started" }))
+      .soft(page.getByRole("link", { name: "Get started123" }))
       .toBeVisible();
     await expect
       .soft(page.getByRole("link", { name: "Get started" }))
